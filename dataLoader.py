@@ -8,14 +8,14 @@ class DataLoader():
         pass
         self.rt = RTree()
 
-    def load_datapoints(self):
+    def load_datapoints(self, points_path):
 
         """
         This function loads the the data points from text file and convert into suitable dataframe format
         :return: a dataframe of the points with two columns: x and y
         """
 
-        points = open("../Dataset for R-Tree.txt", "r")
+        points = open(points_path, "r")
         lines = points.readlines()
         lines = lines[1:]
         x = []
@@ -28,14 +28,14 @@ class DataLoader():
         points = pd.DataFrame({'x': x, 'y': y})
         return points
 
-    def load_query(self):
+    def load_query(self, queries_path):
 
         """
         This function loads the given text file queries and convert them into suitable dataframe format
         :return: a dataframe of the queries coordinates with four columns : x1, x2, y1, y2
         """
 
-        query_points = open("../10 queries (for testing your program ONLY).txt", "r")
+        query_points = open(queries_path, "r")
         query_coordinates = query_points.readlines()
         x1 = []
         x2 = []
