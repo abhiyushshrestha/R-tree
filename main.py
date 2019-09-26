@@ -26,8 +26,11 @@ if __name__ == "__main__":
     queries = handler.queries_loader(args['queries'])
 
     handler.create_rtree_index(points)
-    queries_result_sequential = handler.sequential_search(queries, points)
+    queries_result_sequential = handler.sequential_query(points, queries)
     queries_result_rtree = handler.rtree_search(queries)
+
+    print("queries_result_sequential:", queries_result_sequential)
+    print("queries_result_rtree:", queries_result_rtree)
 
     o.save_as_txt(queries_result_sequential, "queries_result_sequential.txt")
     o.save_as_txt(queries_result_rtree, "queries_result_rtree.txt")

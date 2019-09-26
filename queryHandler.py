@@ -8,7 +8,7 @@ class QueryHandler():
     def __init__(self):
         self.loader = DataLoader()
         self.r_tree = RTree()
-        self.sequential_search = SequentialSearch()
+        self.seq_search = SequentialSearch()
 
     # Loading the given data points
     def datapoints_loader(self, datapoints_path):
@@ -40,7 +40,7 @@ class QueryHandler():
         print("Time taken for loading data points:", end_time - start_time)
 
     # Sequential search
-    def sequential_search(self, points, queries, single = False):
+    def sequential_query(self, points, queries, single = False):
         print("\n\nSequential search:: Performing search. Please wait...")
         queries_result_sequential = []
         if single:
@@ -53,7 +53,7 @@ class QueryHandler():
                 'y1': 13971,
                 'y2': 14971
             }
-            n = self.sequential_search.sequential_query(points, q)
+            n = self.seq_search.sequential_search(points, q)
             end_time = time.time()
             queries_result_sequential.append(n)
             print("Sequential search::Query completed successfully!!!")
@@ -63,7 +63,7 @@ class QueryHandler():
         else:
             start_time = time.time()
             for index, query in queries.iterrows():
-                n = self.sequential_search.sequential_query(points, query)
+                n = self.seq_search.sequential_search(points, query)
                 queries_result_sequential.append(n)
             end_time = time.time()
             print("Sequential search::Query completed successfully!!!")
@@ -71,6 +71,7 @@ class QueryHandler():
             print("Average time taken for sequential query: ", (end_time - start_time) / len(queries))
             print("Search result for Sequential search (all queries)::", queries_result_sequential)
 
+        return queries_result_sequential
 
 
     # Searching using R-trees
@@ -104,3 +105,5 @@ class QueryHandler():
             print("Time taken for R-Tree query:", end_time - start_time)
             print("Average time taken for R-Tree query: ", (end_time - start_time) / len(queries))
             print("query result for R-tree search (for all query)::", queries_result_rtree)
+
+        return queries_result_rtree
