@@ -1,0 +1,6 @@
+# ignore folder
+
+data/
+venv/
+__pycache__/
+
