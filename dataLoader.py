@@ -1,5 +1,5 @@
 import pandas as pd
-from node import Node
+from nodeManager import NodeManager
 from rtree import RTree
 
 class DataLoader():

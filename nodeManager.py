@@ -1,7 +1,7 @@
 
 B = 4
 
-class Node(object):
+class NodeManager(object):
     def __init__(self):
         self.id = 0
         # for internal nodes

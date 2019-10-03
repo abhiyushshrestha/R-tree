@@ -28,7 +28,7 @@ class QueryHandler():
         queries = self.loader.load_query(queries_path)
         end_time = time.time()
         print("Queries loaded successfully!!!")
-        print("Time taken for loading queries:", end_time - start_time)
+        print("Time taken for loading queries: {} secs".format(end_time - start_time))
         return queries
 
     # Creating a R-tree index
@@ -39,7 +39,7 @@ class QueryHandler():
             self.r_tree.insert(self.r_tree.root, point)
         end_time = time.time()
         print("Rtree index created successfully!!!")
-        print("Time taken for loading data points:", end_time - start_time)
+        print("Time taken for building R-tree is : {} secs".format(end_time - start_time))
 
     # Sequential search
     def sequential_query(self, points, queries, single = False):
@@ -60,7 +60,7 @@ class QueryHandler():
             queries_result_sequential.append(n)
             print("Sequential search::Query completed successfully!!!")
             print("Time taken for searching single query:", end_time - start_time)
-            print("query result for sequential search (for 1 query)::", queries_result_sequential)
+            print("query result for sequential search (for 1 query) is : {} secs".format(queries_result_sequential))
 
         else:
             start_time = time.time()
@@ -72,7 +72,7 @@ class QueryHandler():
             print("Sequential search::Query completed successfully!!!")
             print("Time taken for sequential query: ", self.sequential_query_time)
             print("Average time taken for sequential query: ", self.sequential_query_time / len(queries))
-            print("Search result for Sequential search (all queries)::", queries_result_sequential)
+            print("Search result for Sequential search (all queries) is : {} secs".format(queries_result_sequential))
 
         return queries_result_sequential
 
@@ -97,7 +97,7 @@ class QueryHandler():
             queries_result_rtree.append(n)
             print("Rtree::Query completed successfully!!!")
             print("Total time taken for R-tree query:", rtree_query_time)
-            print("query result for R-tree search (for 1 query)::", queries_result_rtree)
+            print("query result for R-tree search (for 1 query) is : {} secs".format(queries_result_rtree))
 
         else:
             start_time = time.time()
@@ -109,6 +109,6 @@ class QueryHandler():
             print("Rtree::Query completed successfully!!!")
             print("Time taken for R-Tree query:", self.rtree_query_time)
             print("Average time taken for R-Tree query: ", self.rtree_query_time / len(queries))
-            print("query result for R-tree search (for all query)::", queries_result_rtree)
+            print("query result for R-tree search (for all query) is : {} secs".format(queries_result_rtree))
 
         return queries_result_rtree

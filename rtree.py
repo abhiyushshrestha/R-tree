@@ -1,11 +1,11 @@
-from node import  Node
+from nodeManager import NodeManager
 import sys
 import math
 
 B = 4
 class RTree(object):
     def __init__(self):
-        self.root = Node()
+        self.root = NodeManager()
 
     def query(self, node, query):
         num = 0
@@ -82,9 +82,9 @@ class RTree(object):
         u1, u2 = self.split(u)
         # if u is root, create a new root with s1 and s2 as its' children
         if u.check_root():
-            new_root = Node()
-            self.add_child(new_root, u1)
-            self.add_child(new_root, u2)
+            new_root = NodeManager()
+            self.add_child_node(new_root, u1)
+            self.add_child_node(new_root, u2)
             self.root = new_root
             self.update_mbr(new_root)
         # if u is not root, delete u, and set s1 and s2 as u's parent's new children
@@ -92,16 +92,16 @@ class RTree(object):
             w = u.parent
             # copy the information of s1 into u
             w.child_nodes.remove(u)
-            self.add_child(w, u1)
-            self.add_child(w, u2)
+            self.add_child_node(w, u1)
+            self.add_child_node(w, u2)
             if w.check_overflow():
                 self.handle_overflow(w)
             self.update_mbr(w)
 
     def split(self, u):
         # split u into s1 and s2
-        best_s1 = Node()
-        best_s2 = Node()
+        best_s1 = NodeManager()
+        best_s2 = NodeManager()
         best_perimeter = sys.maxsize
         # u is a leaf node
         if u.check_leaf():
@@ -111,10 +111,10 @@ class RTree(object):
                        sorted(u.data_points, key=lambda data_point: data_point['y'])]
             for divide in divides:
                 for i in range(math.ceil(0.4 * B), m - math.ceil(0.4 * B) + 1):
-                    s1 = Node()
+                    s1 = NodeManager()
                     s1.data_points = divide[0: i]
                     self.update_mbr(s1)
-                    s2 = Node()
+                    s2 = NodeManager()
                     s2.data_points = divide[i: divide.__len__()]
                     self.update_mbr(s2)
                     if best_perimeter > s1.calculate_perimeter() + s2.calculate_perimeter():
@@ -132,10 +132,10 @@ class RTree(object):
                        sorted(u.child_nodes, key=lambda child_node: child_node.MBR['y_max'])]
             for divide in divides:
                 for i in range(math.ceil(0.4 * B), m - math.ceil(0.4 * B) + 1):
-                    s1 = Node()
+                    s1 = NodeManager()
                     s1.child_nodes = divide[0: i]
                     self.update_mbr(s1)
-                    s2 = Node()
+                    s2 = NodeManager()
                     s2.child_nodes = divide[i: divide.__len__()]
                     self.update_mbr(s2)
                     if best_perimeter > s1.calculate_perimeter() + s2.calculate_perimeter():
@@ -150,7 +150,7 @@ class RTree(object):
 
         return best_s1, best_s2
 
-    def add_child(self, node, child):
+    def add_child_node(self, node, child):
         node.child_nodes.append(child)
         child.parent = node
         # self.update_mbr(node)

@@ -1,5 +1,5 @@
 import pandas as pd
-from node import Node
+from nodeManager import NodeManager
 from rtree import RTree
 from dataLoader import DataLoader
 from sequentialSearch import SequentialSearch
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     # print("queries_result_rtree:", queries_result_rtree)
 
     times = handler.sequential_query_time / handler.rtree_query_time
-    print("R-tree is {} times faster than sequential search".format(times))
+    print("\n\nR-tree is {} times faster than sequential search".format(times))
 
     o.save_as_txt(queries_result_sequential, "queries_result_sequential.txt")
     o.save_as_txt(queries_result_rtree, "queries_result_rtree.txt")
